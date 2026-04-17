@@ -58,12 +58,19 @@
         box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
       }
 
-      .report-wrap iframe {
+      .report-frame {
+        --report-min-height: clamp(500px, 74vh, 920px);
         display: block;
         width: 100%;
-        min-height: clamp(500px, 74vh, 920px);
+        min-height: var(--report-min-height);
         border: 0;
         background: #fff;
+      }
+
+      .report-frame--crop-nav {
+        --nav-crop-height: 58px;
+        min-height: calc(var(--report-min-height) + var(--nav-crop-height));
+        margin-bottom: calc(-1 * var(--nav-crop-height));
       }
 
       .wip-button {
@@ -98,8 +105,12 @@
           border-radius: 10px;
         }
 
-        .report-wrap iframe {
-          min-height: 70vh;
+        .report-frame {
+          --report-min-height: 70vh;
+        }
+
+        .report-frame--crop-nav {
+          --nav-crop-height: 64px;
         }
       }
     </style>
@@ -138,8 +149,9 @@
       <section class="report-stack" aria-label="Raporty Power BI z progami punktowymi">
         <div class="report-wrap">
           <iframe
+            class="report-frame report-frame--crop-nav"
             title="Progi specjalizacyjne - tabela 1"
-            src="https://app.powerbi.com/view?r=eyJrIjoiNzNmYzRmN2EtYzdjNC00ODY1LTk5YTEtNzZiMjQ3ZWRmNzEyIiwidCI6IjQ1NDIwZThkLTg1NTItNGEwMy05YjkyLWE5MzFlZjgzOWQzZiIsImMiOjh9&pageName=72594d30035d4d320064&navContentPaneEnabled=false&filterPaneEnabled=false"
+            src="https://app.powerbi.com/view?r=eyJrIjoiNzNmYzRmN2EtYzdjNC00ODY1LTk5YTEtNzZiMjQ3ZWRmNzEyIiwidCI6IjQ1NDIwZThkLTg1NTItNGEwMy05YjkyLWE5MzFlZjgzOWQzZiIsImMiOjh9&pageName=72594d30035d4d320064"
             allowfullscreen="true"
             loading="lazy"
           ></iframe>
@@ -147,13 +159,16 @@
 
         <div class="report-wrap">
           <iframe
+            class="report-frame report-frame--crop-nav"
             title="Progi specjalizacyjne - tabela 2"
-            src="https://app.powerbi.com/view?r=eyJrIjoiNzNmYzRmN2EtYzdjNC00ODY1LTk5YTEtNzZiMjQ3ZWRmNzEyIiwidCI6IjQ1NDIwZThkLTg1NTItNGEwMy05YjkyLWE5MzFlZjgzOWQzZiIsImMiOjh9&pageName=befc06878996204d5042&navContentPaneEnabled=false&filterPaneEnabled=false"
+            src="https://app.powerbi.com/view?r=eyJrIjoiNzNmYzRmN2EtYzdjNC00ODY1LTk5YTEtNzZiMjQ3ZWRmNzEyIiwidCI6IjQ1NDIwZThkLTg1NTItNGEwMy05YjkyLWE5MzFlZjgzOWQzZiIsImMiOjh9&pageName=befc06878996204d5042"
             allowfullscreen="true"
             loading="lazy"
           ></iframe>
         </div>
       </section>
+
+      <p class="muted">Jeśli dolny pasek nawigacji nadal będzie widoczny, daj znać — dopasuję wysokość przycięcia.</p>
     </main>
 
     <a class="wip-button" href="wip.html">work in progress</a>
