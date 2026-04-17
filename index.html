@@ -24,6 +24,7 @@
         width: min(1100px, 100%);
         margin: 0 auto;
         padding: clamp(1rem, 2.5vw, 2rem);
+        padding-bottom: 5rem;
       }
 
       h1 {
@@ -73,9 +74,32 @@
         font-size: 0.95rem;
       }
 
+      .wip-button {
+        position: fixed;
+        left: 50%;
+        bottom: 0.9rem;
+        transform: translateX(-50%);
+        z-index: 100;
+        border: 1px solid #cbd5e1;
+        border-radius: 999px;
+        background: #ffffff;
+        color: #0f172a;
+        font-size: 0.85rem;
+        line-height: 1;
+        padding: 0.55rem 0.9rem;
+        text-decoration: none;
+        box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+      }
+
+      .wip-button:hover,
+      .wip-button:focus-visible {
+        background: #f8fafc;
+      }
+
       @media (max-width: 768px) {
         main {
           padding: 0.85rem;
+          padding-bottom: 4.5rem;
         }
 
         #reportContainer {
@@ -129,6 +153,8 @@
       </p>
     </main>
 
+    <a class="wip-button" href="wip.html">work in progress</a>
+
     <script src="https://cdn.jsdelivr.net/npm/powerbi-client@2.23.1/dist/powerbi.min.js"></script>
     <script>
       (function () {
@@ -151,7 +177,6 @@
         const models = powerbiClient && powerbiClient.models;
         const config = window.POWERBI_EMBED_CONFIG;
 
-        // If no authenticated embed config is provided, fallback to public iframe.
         if (!powerbiClient || !models || !config || !config.id || !config.embedUrl || !config.accessToken) {
           renderIframeFallback();
           return;
@@ -180,7 +205,6 @@
         const report = powerbiClient.embed(reportContainer, embedConfig);
 
         report.on("loaded", async () => {
-          // Optional check requested by Power BI docs: confirm mobile layout exists for the active page.
           if (!isMobile) return;
 
           try {
@@ -194,11 +218,10 @@
               }
             }
           } catch (_error) {
-            // Gracefully ignore API errors to avoid interrupting fallback report usage.
+            // Ignore API errors to avoid interrupting fallback report usage.
           }
         });
 
-        // Update layout on orientation/viewport changes after initial load.
         const mediaQuery = window.matchMedia("(max-width: 768px)");
         mediaQuery.addEventListener("change", async (event) => {
           const newLayoutType = event.matches
